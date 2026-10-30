@@ -1,0 +1,4 @@
+interface:
+  display_name: "LEEZY DOCX"
+  short_description: "先改Markdown，再以修改的XXX命名样式排版可维护的Word报告"
+  default_prompt: "使用 $leezy-docx 按当前任务先修改报告源稿；需要输出Word时使用修改的XXX样式和透明底色三线表，区分黑体表头与宋体表内文字，设置自动目录、编号、交叉引用及跨页续表，并验证样式修改能统一调整排版。"
