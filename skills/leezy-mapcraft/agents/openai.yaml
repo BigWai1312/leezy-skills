@@ -1,0 +1,5 @@
+interface:
+  display_name: "LEEZY MapCraft"
+  short_description: "GIS 精细制图：离线底图、专题设色、图廓整饰与可编辑工程"
+  brand_color: "#4C7A5A"
+  default_prompt: "Use $leezy-mapcraft to create an editable ArcGIS Pro thematic map from my local data, and export one preview for review."
