@@ -1,10 +1,10 @@
 ---
 name: leezy-mapcraft
-description: Create polished, offline, editable ArcGIS Pro thematic maps for reports, presentations, and spatial analysis at city, county, town, planning-zone, and village scales.
+description: Prepare and validate offline GIS basemaps, acquire missing base geography when authorized, and create editable ArcGIS Pro maps at province, city, county, town, planning-zone, and village scales.
 metadata:
   author: BigWai1312
   source: https://github.com/BigWai1312/leezy-skills/tree/main/skills/leezy-mapcraft
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # LEEZY MapCraft
@@ -15,7 +15,7 @@ The author credit identifies this skill, not the author of the user's data or ma
 
 For installation and invocation, see [README.md](README.md). For input templates and expected outputs, see [examples.md](examples.md). This skill provides guidance rather than a bundled ArcPy program; runtime tools and licensed GIS software must be available separately.
 
-Use this skill when a map must be analytically readable, visually consistent, offline, and editable in ArcGIS Pro. It covers thematic maps with DEM, hillshade, water, roads, administrative boundaries, town polygons, planning zones, village points, and report-ready layout elements.
+Use this skill for base-data checklists, offline basemap preparation, and analytically readable, editable ArcGIS Pro maps. It covers DEM, hillshade, water, roads, administrative boundaries, place names, thematic layers, and report-ready layouts.
 
 ## Working Principles
 
@@ -25,16 +25,31 @@ Use this skill when a map must be analytically readable, visually consistent, of
 - Prefer local data and offline projects. Do not add online basemaps or web layers to a deliverable that must run on a production computer without internet.
 - Produce an editable ArcGIS Pro project plus exported images when the user asks for a map. Do not insert images into a DOCX unless explicitly requested; provide Markdown links or a separate map folder first.
 
+## Task Scope And Missing Base Data
+
+- Checklist or advice only: inspect relevant local sources if useful and list requirements, existing evidence, gaps, and priorities. Do not download datasets, derive layers, or start mapping in this mode; honor any request to wait for later collection.
+- Base-data preparation: inventory, acquire missing required base geography, prepare offline layers, and validate them. Stop at the base-data handoff unless maps are also requested.
+- Map production: reuse validated local layers first, automatically obtain missing required base layers within the authorized task, then draw the map. Do not repeatedly ask for permission already provided by the request or session.
+- A request only to edit this skill, review a map, write a tutorial, or restyle an existing project does not authorize data collection.
+- If the user will supply spatialized indicators, keep indicator retrieval, spatialization, land-cover analysis, and thematic recalculation outside the base-data task. Missing thematic values must not be fabricated.
+
+Before listing, acquiring, or validating base data, read [Base Geography Preparation](references/base-geography.md). It defines the layer checklist, source selection, extent, offline handoff, and acceptance checks. Search the supplied local folders first; automatically fill real gaps with suitable public or already-authorized sources when acquisition is in scope. Report source-specific blockers and continue independent work; do not silently substitute unverified data.
+
 ## Data And Scale
 
 Before symbolizing, identify the intended scale and the feature that carries the conclusion:
 
-- City or county scale: show the complete study boundary and its surrounding terrain, major rivers, roads, and neighboring spatial relationships.
+- Province, city, or county scale: show the complete study boundary and its surrounding terrain, major rivers, roads, and neighboring spatial relationships.
 - Town or planning-zone scale: retain the town/planning-zone code, name, indicator value, class code, and geometry in the output table. Use projected polygons for thematic results.
 - Village scale: use village points when the source is point data. Treat placeholder points as placeholders and keep the source identifier for later spatial linking.
-- If an administrative boundary, DEM, water, road, or point source is missing, search the supplied local project folders first. If downloading is necessary, record the source, date, license, spatial reference, file hash, and offline copy.
 - Use one projected coordinate system for the working map, preferably a suitable local CGCS2000 projected system. Reproject source layers into the working GDB; do not modify the original files.
 - Check geometry validity, coverage, field types, null values, duplicate codes, and the relationship between the indicator field and the class field before drawing.
+
+### Surrounding Basemap Extent
+
+Unless the user supplies an extent, acquire base geography for a square centered on the study boundary's projected bounding box. Set its side length to `1.4 * max(width, height)` in a suitable metric projected CRS. This means a 40% increase in the longest bounding-box dimension, not 40% more area or 40% padding on every side. Never construct a metric square by treating longitude and latitude degrees as equal lengths.
+
+Keep the exact study boundary, context square, and final map-frame extent separate. Terrain, water, transport, neighboring boundaries, and reference labels must support the context square, not stop at the study boundary. Acquire a small extra DEM processing margin for hillshade or reprojection. The final map frame must stay within validated coverage; extend acquisition if its aspect ratio or rotation exposes additional ground.
 
 ## Basemap Construction
 
@@ -70,16 +85,16 @@ Default visual treatment:
 
 ## Layout Standard
 
-Use a compact map page so the study boundary fills the map frame and does not leave a large empty side panel.
+Use a compact map page without a large empty side panel. Choose the framing for the requested purpose.
 
-- Put the complete city or study boundary at the largest useful extent while retaining a small, even margin for the map frame and geographic ticks.
-- The main map frame should occupy most of the page. Aim for the study boundary to fill roughly 85–95% of the frame width and height when the geometry allows it.
+- Keep the complete study boundary visible within the chosen framing, with room for geographic ticks. Preserve surrounding geography when it is part of the requested view.
+- The main map frame should occupy most of the page. For a close thematic view, aim for the study boundary to fill roughly 85–95% of the frame width and height when the geometry allows it. For a surrounding-context map, retain the requested context square instead; the default 1.4 factor makes the boundary's longest bounding-box dimension about 71% of the square side. Do not zoom away the requested surroundings to satisfy the close-view target.
 - Put the central-city inset in the natural empty area at the upper left. Keep its heading and scale bar close to the inset.
 - Put the north arrow at the upper right. Use the native `ArcGIS 指北针 2` style when available.
 - Put the legend at the lower right. Use two columns: the left column contains the thematic classes; the right column contains reference explanations such as main rivers, roads, county boundaries, and unmatched data.
 - Create one white or very pale translucent legend panel that covers the complete legend area. The panel must be behind every legend title, swatch, line sample, and label, and all legend content must remain inside the panel.
 - Put the title, legend, scale bars, north arrow, and other required layout elements inside the map frame/page composition. Remove unnecessary outer page rectangles; retain the inner map-frame boundary.
-- Do not show internal figure codes, source notes, projection notes, processing subtitles, or long estimation explanations inside the exported image unless the user requests them. Put the indicator unit directly in the legend title.
+- Keep internal figure codes, optional source/projection notes, processing subtitles, and long estimation explanations outside the exported image unless requested. Always retain any attribution or notices required by the selected data license, in the required location. Put the indicator unit directly in the legend title.
 
 ## Coordinate Frame And Typography
 
@@ -104,7 +119,9 @@ For a presentation-style floating city effect, create a separate decorative shad
 
 ## Export And Validation
 
-For a normal delivery, keep the source and editable outputs together in a clearly named folder:
+For base-data-only work, use the handoff in [Base Geography Preparation](references/base-geography.md); APRX and final map exports are not required. Follow the project's folder conventions and preserve raw inputs separately from processed data.
+
+For a map delivery, package the editable outputs with their required local data and provenance in a clearly named folder:
 
 - Editable `.aprx` with all paths local and relative where practical.
 - File geodatabase containing processed vectors and rasters, with all required sidecars preserved for Shapefiles.
@@ -116,6 +133,7 @@ For a normal delivery, keep the source and editable outputs together in a clearl
 Before reporting completion, reopen the exported project and check:
 
 - No broken layers, online layers, missing rasters, or uncovered DEM area inside the map frame.
+- Base-data QA covers the displayed surroundings as well as the study area; any unresolved source, coverage, alignment, or label issues remain explicit.
 - The city/study boundary is fully visible and occupies the intended frame.
 - Thematic values and class codes match the source table; no values were silently rounded, recoded, sorted, or dropped.
 - The legend panel is below all legend content in drawing order and encloses both columns.

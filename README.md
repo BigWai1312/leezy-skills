@@ -12,7 +12,7 @@
 
 | 技能 | 用途 | 调用方式 | 安装路径 |
 | --- | --- | --- | --- |
-| [LEEZY MapCraft](skills/leezy-mapcraft/README.md) | GIS 精细制图：DEM、晕渲、水系、道路、专题设色、图例及版式 | `$leezy-mapcraft` | `skills/leezy-mapcraft` |
+| [LEEZY MapCraft](skills/leezy-mapcraft/README.md) | GIS 精细制图：缺失基础数据获取、周边底图核验、专题设色及可编辑版式 | `$leezy-mapcraft` | `skills/leezy-mapcraft` |
 | [LEEZY DOCX](skills/leezy-docx/README.md) | 中文报告排版：Markdown 优先、独立命名样式、自动目录、透明底色三线表与跨页续表 | `$leezy-docx` | `skills/leezy-docx` |
 
 集合名称是 **LEEZY Skills**，具体技能显示名称统一为 **LEEZY + 英文功能名**。集合本身不是一个可调用技能，请使用表格中的调用名。
@@ -58,7 +58,7 @@ ArcPy 环境：<python.exe 路径>；输出目录：<目录>
 导出 PNG 预览和 600 dpi JPG，不修改源数据，不插入 Word。
 ```
 
-更多示例见 [制图、改图与手工教程](skills/leezy-mapcraft/examples.md)。示例均是输入模板，不是已经完成的地图或精度验证结果。
+更多示例见 [基础数据准备、制图、改图与手工教程](skills/leezy-mapcraft/examples.md)。MapCraft 1.1.0 支持先查本地、再自动获取缺失基础数据，默认准备研究区外包矩形长边1.4倍的正方形周边范围。只列清单时不下载，专题指标由用户自行准备时不扩入基础数据任务。示例均是输入模板，不是已经完成的地图或精度验证结果。
 
 报告排版调用：
 
