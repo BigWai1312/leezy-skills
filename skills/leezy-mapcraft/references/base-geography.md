@@ -60,7 +60,7 @@ part of it. Preserve identifiers and native attributes alongside display fields.
 
 For a China province package, the first two administrative levels normally mean
 province and prefecture/city/autonomous prefecture; retain counties as a finer
-reserve. Adapt levels to the region rather than hard-coding Hunan or a fixed count.
+reserve. Adapt levels to the region rather than hard-coding a region or a fixed count.
 
 Hillshade, simplified display boundaries, filtered roads, water styling ranks,
 and label tables are derived outputs, not separate datasets to download again.

@@ -4,13 +4,13 @@
 
 作者：[BigWai1312](https://github.com/BigWai1312) · [仓库源地址](https://github.com/BigWai1312/leezy-skills) · [MIT 许可](LICENSE)
 
-把实际工作中的方法整理成可复用的 AI 工作规范。当前主分支集合版本为 **1.2.1**，包含 3 个可分别安装的技能。仓库提供技能、效果预览和通用模板，不打包实际项目的底层数据。
+面向 GIS 制图、报告排版与演示制作的可复用 AI 工作规范。当前主分支集合版本为 **1.2.2**，包含 3 个可分别安装的技能。公开内容采用通用说明、占位输入与虚构演示，不包含用户项目材料。
 
 ## 技能目录
 
 | 技能 | 版本 | 用途与交付 | 调用方式 |
 | --- | --- | --- | --- |
-| [LEEZY MapCraft](skills/leezy-mapcraft/README.md) | 1.2.1 | 补齐必要基础数据；独立制作概况图或专题图；交付可编辑 APRX 与图片 | `$leezy-mapcraft` |
+| [LEEZY MapCraft](skills/leezy-mapcraft/README.md) | 1.2.2 | 补齐必要基础数据；独立制作概况图或专题图；交付可编辑 APRX 与图片 | `$leezy-mapcraft` |
 | [LEEZY DOCX](skills/leezy-docx/README.md) | 1.0.0 | Markdown 优先；命名样式、自动目录、三线表、题注与引用；交付可维护 DOCX | `$leezy-docx` |
 | [LEEZY SlideCraft](skills/leezy-slidecraft/README.md) | 1.0.0 | 大纲与逐页草稿确认；模板适配、原生图表与自动页码；交付可编辑 PPTX | `$leezy-slidecraft` |
 
@@ -18,15 +18,7 @@ LEEZY Skills 是集合名称，不是调用名。只需安装自己要使用的�
 
 ## 效果预览
 
-MapCraft 展示实际完成的湖南概况图；DOCX 和 SlideCraft 展示明确标注的虚构数据排版样例。三者的来源、生成方式与使用范围分别见 [示例说明](docs/demo-gallery.md)。
-
-### MapCraft · 湖南省区域概况图
-
-适量周边、真实地形晕渲、分层边界、整度图廓、全国区位图和留有内边距的图例。此图是独立概况图，不含 SDG 指标，也不是专题图的底图文件。
-
-![LEEZY MapCraft 湖南省区域概况图实际输出](skills/leezy-mapcraft/assets/demo-preview.png)
-
-来源：GADM、Natural Earth、ArcGIS World Elevation / Terrain、GMT China geospatial data。图中 DEM 约 450 m；水系存在概化与缺项，全国区位为研究示意。完整署名、参数与限制见 [图片来源说明](skills/leezy-mapcraft/references/preview-provenance.md)。
+DOCX 和 SlideCraft 的图片均使用虚构测试内容，生成方式与使用范围见 [示例说明](docs/demo-gallery.md)。MapCraft 的图件类型、制图规范与交付方式见 [技能说明](skills/leezy-mapcraft/README.md)，公开仓库不展示用户项目地图。
 
 ### DOCX · 中文报告排版
 
@@ -52,7 +44,7 @@ $skill-installer
 路径 skills/leezy-slidecraft，名称 leezy-slidecraft。
 ```
 
-已有同名安装时先保留本地自定义版本，再更新并重新打开会话。**本次 MapCraft 1.2.1 修订位于 main；旧 Release 附件不会随推送更新。** 从 [Releases](https://github.com/BigWai1312/leezy-skills/releases) 下载 ZIP 时，请核对版本和说明。
+已有同名安装时先保留本地自定义版本，再更新并重新打开会话。**当前修订位于 main；旧 Release 附件不会随推送更新。** 从 [Releases](https://github.com/BigWai1312/leezy-skills/releases) 下载 ZIP 时，请核对版本和说明。
 
 手动安装时，将对应技能目录放到客户端实际扫描的 Skills 目录，结构为：
 
@@ -128,9 +120,11 @@ $leezy-slidecraft
 
 ## 来源与维护
 
-技能采用 [MIT License](LICENSE)，分发副本时保留版权和许可声明及 [来源记录](NOTICE.md)。作者署名属于技能，不自动加到用户地图、报告或 PPT 上。地图预览涉及的第三方资料仍适用各自条款，不因仓库许可而转为无条件可再分发数据。
+技能采用 [MIT License](LICENSE)，分发副本时保留版权和许可声明及 [来源记录](NOTICE.md)。公开品牌与账号用于技能署名，不自动加到用户地图、报告或 PPT 上。第三方资料仍适用各自条款。
 
-修改技能时同步入口提示、README、调用示例与来源说明，并检查引用链接、实际预览、私人路径和凭据。展示图必须注明是真实成果还是虚构演示，不能以粗略示意替代已经完成的实际效果。
+修改技能时同步入口提示、README、调用示例与来源说明。公开前检查正文、文件名、图片内容和元数据、Office 隐藏属性、提交署名及发布附件。使用通用占位符和独立演示材料，不带入用户身份、机构、具体研究主题、项目名称、原图指纹、制作记录、私人路径或凭据；不要在“未包含”的免责声明里复述这些信息。
+
+更新公共技能的授权不等于公开用户成果的授权。展示素材须独立准备并明确其演示性质；版权与数据署名不能以脱敏为由删除。
 
 推送只更新仓库，不会自动更新用户的本地安装或 Release 附件。发布新 Release 时，从同一提交打包并校验，保留旧版，不静默覆盖旧附件。
 

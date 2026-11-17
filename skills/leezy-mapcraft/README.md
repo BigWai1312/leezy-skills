@@ -1,18 +1,10 @@
 # LEEZY MapCraft
 
-**GIS 基础数据与独立制图 · LEEZY Skills · 版本 1.2.1**
+**GIS 基础数据与独立制图 · LEEZY Skills · 版本 1.2.2**
 
 [技能源地址](https://github.com/BigWai1312/leezy-skills/tree/main/skills/leezy-mapcraft) · [作者 BigWai1312](https://github.com/BigWai1312) · [MIT 许可](LICENSE) · [来源声明](NOTICE.md)
 
 准备和核验基础地理数据，使用 ArcGIS Pro 制作区域概况图或指标专题图，并支持现有工程调整、审图与离线手工教程。只做用户要求的图件：概况图与专题图可以共用数据，但分别建立地图与布局，互不作为前置步骤。
-
-## 实际效果
-
-![湖南省区域概况图实际输出](assets/demo-preview.png)
-
-这是实际完成的湖南概况图：20% 边长扩展的显示范围、适度晕渲、全国区位小图、整度图廓、图名白色光晕和右下双列图例。预览与原 PNG 一致，不使用人工区域或合成地形代替实际效果。
-
-来源：GADM、Natural Earth、ArcGIS World Elevation / Terrain、GMT China geospatial data。DEM 约 450 m，水系仍有概化与缺项。完整署名、参数与限制见 [图片来源说明](references/preview-provenance.md)。本图不含 SDG 指标，不是专题结果，也不能作为其他地图的底图文件；技能包不附带底层 GIS 数据或项目工程。
 
 ## 两类地图如何使用
 
@@ -33,7 +25,7 @@ $skill-installer
 从 BigWai1312/leezy-skills 的 main 分支安装 skills/leezy-mapcraft。
 ```
 
-已有安装先保留自定义版本，再更新并重新打开会话。本次 1.2.1 修订位于 main；旧 Release ZIP 不会自动更新。手动安装时保留完整技能目录，包括 `agents/`、`references/` 和 `assets/`，不要只复制 `SKILL.md`。
+已有安装先保留自定义版本，再更新并重新打开会话。当前修订位于 main；旧 Release ZIP 不会自动更新。手动安装时保留完整技能目录，包括 `agents/` 和 `references/`，不要只复制 `SKILL.md`。
 
 ## 调用示例
 
@@ -100,6 +92,8 @@ $leezy-mapcraft
 LEEZY MapCraft | BigWai1312 | github.com/BigWai1312/leezy-skills
 不要遮挡图例、比例尺或地理要素。
 ```
+
+公开技能只使用通用调用模板，不包含用户项目地图、数据、研究主题、身份信息或私人制作记录。地图成果属于具体任务的交付，不自动用于仓库展示；公开示例须独立准备并检查图片与元数据。
 
 当前调用名为 `$leezy-mapcraft`，旧调用 `$arcgis-map-craft` 不会自动指向新版。
 

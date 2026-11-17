@@ -4,7 +4,7 @@ description: Prepare and validate offline GIS basemaps, automatically acquire mi
 metadata:
   author: BigWai1312
   source: https://github.com/BigWai1312/leezy-skills/tree/main/skills/leezy-mapcraft
-  version: "1.2.1"
+  version: "1.2.2"
 ---
 
 # LEEZY MapCraft
@@ -25,6 +25,7 @@ Use this skill for base-data checklists, offline basemap preparation, and analyt
 - Prefer local data and offline projects. Do not add online basemaps or web layers to a deliverable that must run on a production computer without internet.
 - Produce an editable ArcGIS Pro project plus exported images when the user asks for a map. Do not insert images into a DOCX unless explicitly requested; provide Markdown links or a separate map folder first.
 - For revisions, preserve the accepted composition and change only the requested properties. Back up the current outputs, update the reproducible script and affected derivatives, and refresh the APRX, exports, provenance and QA together.
+- Public skill documentation and examples must use neutral placeholders and independently prepared demonstration material. Updating a public skill does not authorize publishing user project maps, research subjects, identities, private paths, source fingerprints or production records. Inspect visible image content, metadata and packaged files before publication; do not echo a private subject in a disclaimer about excluding it. Keep required copyright and data attribution.
 
 ## Task Scope And Missing Base Data
 
