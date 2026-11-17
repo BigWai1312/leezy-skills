@@ -1,0 +1,8 @@
+interface:
+  display_name: "LEEZY SlideCraft"
+  short_description: "专业演示与汇报制作：先确认大纲和Markdown草稿，再制作模板统一的可编辑PPT"
+  brand_color: "#0167B1"
+  default_prompt: "使用 $leezy-slidecraft 整理我的材料，先提供汇报大纲，确认后写逐页Markdown草稿，再经确认制作可编辑PPT，默认沿用内置蓝白汇报模板。"
+
+policy:
+  allow_implicit_invocation: true
