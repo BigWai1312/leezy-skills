@@ -12,7 +12,7 @@
 
 | 技能 | 用途 | 调用方式 | 安装路径 |
 | --- | --- | --- | --- |
-| [LEEZY MapCraft](skills/leezy-mapcraft/README.md) | GIS 精细制图：缺失基础数据获取、周边底图核验、专题设色及可编辑版式 | `$leezy-mapcraft` | `skills/leezy-mapcraft` |
+| [LEEZY MapCraft](skills/leezy-mapcraft/README.md) | GIS 制图：自动补齐基础数据与 DEM、全国区位小图、适度晕渲及可编辑版式 | `$leezy-mapcraft` | `skills/leezy-mapcraft` |
 | [LEEZY DOCX](skills/leezy-docx/README.md) | 中文报告排版：Markdown 优先、独立命名样式、自动目录、透明底色三线表与跨页续表 | `$leezy-docx` | `skills/leezy-docx` |
 
 集合名称是 **LEEZY Skills**，具体技能显示名称统一为 **LEEZY + 英文功能名**。集合本身不是一个可调用技能，请使用表格中的调用名。

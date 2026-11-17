@@ -1,5 +1,5 @@
 interface:
   display_name: "LEEZY MapCraft"
-  short_description: "GIS 精细制图：基础数据自动补齐、周边底图核验与可编辑工程"
+  short_description: "GIS 制图：自动补齐基础数据与 DEM、全国区位小图、适度晕渲及可编辑交付"
   brand_color: "#4C7A5A"
-  default_prompt: "Use $leezy-mapcraft to check my local data, acquire missing base geography for the study area and its surroundings, and create an editable ArcGIS Pro map with one preview."
+  default_prompt: "Use $leezy-mapcraft to validate local data, download missing base geography including a real DEM, and create an editable regional overview with a national locator, compact framing and moderate relief."

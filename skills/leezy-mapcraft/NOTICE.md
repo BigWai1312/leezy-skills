@@ -10,7 +10,7 @@ Canonical collection: https://github.com/BigWai1312/leezy-skills
 
 Canonical skill: https://github.com/BigWai1312/leezy-skills/tree/main/skills/leezy-mapcraft
 
-Version: 1.0.0
+Version: 1.2.0
 
 License: MIT (see LICENSE).
 

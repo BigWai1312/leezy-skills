@@ -26,6 +26,14 @@ analysis, imagery time series, and indicator recalculation unless requested.
 Township boundaries, dense POIs, minor streets, protected areas, and basin datasets
 are optional additions driven by the map's scale or subject.
 
+When preparation or mapping is requested and local base data are absent, carry
+the work through acquisition and validation without requiring a second "download"
+instruction. Obtain a credible study boundary first, calculate coverage, then
+fetch missing required layers and make local derived copies. A shortlist of
+providers or online layer URLs alone is not a delivered basemap. If the user
+prohibits network access or downloads during execution, inventory local gaps
+instead. Requiring an offline final project alone does not prohibit acquisition.
+
 ## Base-Layer Checklist
 
 All context layers must support the same context square. Sparse vector features
@@ -42,7 +50,7 @@ part of it. Preserve identifiers and native attributes alongside display fields.
 | Water polygons | Lakes, reservoirs, and wide-river surfaces; ID, name, type, shoreline date or time basis | Required where present; distinguish permanent/generalized water from a particular year's observed extent |
 | Major transport | Motorways, major national routes, railways and high-speed rail where relevant; name/reference, class, operational status, snapshot date | Prepare for general reference maps; omit if excluded by the user or unnecessary for the requested map |
 | Place names and reference points | Administrative seats, selected towns, major rivers/lakes/mountains and neighboring cities; ID, name, type, coordinates, label priority, evidence | Check local-language spelling and duplicate names; keep physical locations separate from movable label anchors |
-| Locator inset material | Suitable national/regional reference map and study-area location | Optional; independent of the context square, with its own source and usage terms |
+| Locator inset material | Suitable complete national/regional reference map and study-area location | Default for a new regional overview unless omitted; otherwise optional; independent of the main coverage, with its own source, extent and usage terms |
 
 For a China province package, the first two administrative levels normally mean
 province and prefecture/city/autonomous prefecture; retain counties as a finer
@@ -67,21 +75,29 @@ width = xmax - xmin
 height = ymax - ymin
 cx = (xmin + xmax) / 2
 cy = (ymin + ymax) / 2
-factor = 1.4
-side = factor * max(width, height)
-context_bounds = (cx - side/2, cy - side/2, cx + side/2, cy + side/2)
+acquisition_factor = 1.4
+display_factor = 1.2
+acquisition_side = acquisition_factor * max(width, height)
+display_side = display_factor * max(width, height)
+acquisition_bounds = (cx - acquisition_side/2, cy - acquisition_side/2,
+                      cx + acquisition_side/2, cy + acquisition_side/2)
+display_bounds = (cx - display_side/2, cy - display_side/2,
+                  cx + display_side/2, cy + display_side/2)
 ```
 
 Require finite bounds, positive width/height, and a factor of at least 1 unless
 the user deliberately wants to crop the study area. Honor explicit extents and
 padding settings over this default.
 
-With factor 1.4, each end of the original longer dimension gains 20% of that
-dimension; the shorter dimension gains more to make a square. The area is 1.96
-times the unexpanded enclosing square, not 1.4 times the original bounding-box
-area. The square is measured in the chosen projection, not in angular degrees.
+The acquisition square provides processing and layout reserve; it need not all
+appear in the final map. With factor 1.4, each end of the original longer
+dimension gains 20% of that dimension; with factor 1.2, each end gains 10%.
+The shorter dimension gains more to make a square. These factors refer to side
+length, not area. Both squares are measured in the chosen projection, not in
+angular degrees. Preserve wider coverage already downloaded when tightening the
+display; do not reacquire or resample a DEM just because the map view changes.
 
-Save the study boundary and context-square polygon separately, with the factor,
+Save the study boundary, acquisition square and display polygon separately, with each factor,
 CRS, numeric bounds, and boundary source. For geographic download APIs, densify
 the projected square edges before transforming, take a conservative geographic
 envelope, and select all intersecting tiles. Mosaic and trim only derived copies.
@@ -114,6 +130,10 @@ coverage:
   an extract named for the study province may omit needed neighboring coverage.
   Read the [OpenStreetMap usage and attribution terms](https://www.openstreetmap.org/copyright)
   before preparing reusable outputs.
+- National locator: prefer suitable official reference material; established
+  cartographic/community sources may be used for a documented research schematic.
+  Inspect the whole national extent and islands, not just the study province.
+  Keep its dataset, CRS and usage notices separate from the main-map clip.
 
 At execution time, inspect the publisher's current catalog/documentation for the
 actual version, download route and terms. Do not assume remembered endpoints or
@@ -137,6 +157,27 @@ Check archives and read datasets with a GIS reader, then record file sizes and
 SHA-256 hashes. Download only the needed tiles or bounded region when supported;
 if a provider only offers a larger archive, preserve it and derive a local clip.
 
+### DEM Must Be A Real Local Dataset
+
+- Download and open actual elevation cells covering the acquisition square and
+  processing margin. A hillshade image, web service connection, catalog link,
+  partial archive or terrain screenshot does not satisfy a DEM request.
+- Prefer a documented approximately 30 m product for regional terrain where
+  available. If the user explicitly requires 30 m, a coarser preview does not
+  complete that request. Use permitted alternate products after bounded failures;
+  report any remaining resolution/coverage gap instead of claiming success.
+- If no exact resolution was required, a coarser source may support a clearly
+  identified preview when fit for the intended scale. Record native resolution,
+  requested/export grid spacing and derived cell size separately. Service image
+  pixel dimensions do not establish native terrain resolution; a 400–500 m
+  export is not a 30 m DEM even when the service contains finer source data.
+- Preserve original elevations and NoData. Reproject/mosaic derived copies,
+  inspect holes and seams, check horizontal/vertical units, then create hillshade
+  and tinted relief. Finer resampling or stronger shadows do not add information.
+- Record the actual exaggeration and blend used in the map; name or key derivative
+  caches by their inputs and rendering parameters so a style change cannot
+  silently reuse an old hillshade or RGB raster.
+
 ## Preparation And Acceptance
 
 Produce processed copies in a common working projection, preserving the original
@@ -156,6 +197,19 @@ Apply the following checks before marking a layer `validated`:
 | Water and transport | Useful class/rank fields, main features present, line/polygon consistency, operational-status and shoreline-time caveats; inspect seams after mosaicking extracts |
 | Names and attributes | Readable local-language names, code types, duplicates, nulls and parent links; unnamed features are flagged, not assigned guessed names |
 | Provenance and reuse | Source, dataset version, actual reference period, download timestamp, CRS, scale/resolution, field definitions, license/attribution, hashes and local paths are recorded |
+
+Maintain a small checked label table for priority administrative seats and major
+water features: source ID, Chinese name, category, coordinate/CRS and label
+priority. Preserve source water classes or record any derived cartographic rank;
+separate main rivers, tributaries, lakes and reservoirs where the data support it.
+Check the expected major rivers individually: a generalized dataset may be
+readable and geometrically valid while omitting an important river. Do not fill
+such a gap with a hand-drawn or invented line.
+
+For locator imports, inspect mixed line/polygon records before conversion.
+Retain island/sea-boundary lines as lines instead of discarding them as empty
+polygons. If 64-bit feature IDs prevent a DBF QA report, use a compatible
+geodatabase table rather than dropping the geometry check.
 
 Measure and record results, tolerances, and unresolved exceptions. Unknown source
 accuracy or unperformed external validation remains unknown even if geometry and
@@ -177,7 +231,7 @@ Hand off:
 
 - Offline processed vectors and rasters (GDB or GeoPackage and GeoTIFF as supported
   by the target GIS), with required sidecars and preserved original data.
-- Study boundary, context square and extent metadata.
+- Study boundary, acquisition square, display polygon when mapping, and extent metadata.
 - A layer inventory/source manifest including status and field definitions; use
   UTF-8 with BOM for CSV intended for Excel when the project requires it.
 - A QA record, available overview image, known limitations, and reproducible
