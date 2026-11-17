@@ -1,14 +1,12 @@
 # LEEZY SlideCraft
 
-**专业演示与汇报制作 · LEEZY Skills · 作者 BigWai1312**
+**专业演示与汇报制作 · LEEZY Skills · 版本 1.0.0**
+
+[技能源地址](https://github.com/BigWai1312/leezy-skills/tree/main/skills/leezy-slidecraft) · [作者 BigWai1312](https://github.com/BigWai1312) · [MIT 许可](LICENSE) · [来源声明](NOTICE.md)
 
 把报告、论文、数据和现有材料整理为逻辑清楚、视觉统一、可以继续编辑的PPT，适合科研展示、项目汇报和答辩。
 
-技能版本：1.0.0，随 LEEZY Skills v1.2.0 发布。集合源地址：https://github.com/BigWai1312/leezy-skills
-
-技能源路径：https://github.com/BigWai1312/leezy-skills/tree/main/skills/leezy-slidecraft
-
-## 虚构演示
+## 效果预览
 
 ![虚构数据成果汇报页](assets/demo-preview.png)
 
@@ -32,12 +30,13 @@
 
 模板不含实际项目数据、机构署名或品牌水印。它是一页内容样板，不强制新增封面，也不强制总页数。用户本次提供的模板优先。
 
-## 安装
+## 安装与更新
 
 在具备技能安装器的客户端输入：
 
 ```text
-$skill-installer 从 BigWai1312/leezy-skills 安装 skills/leezy-slidecraft。
+$skill-installer
+从 BigWai1312/leezy-skills 的 main 分支安装 skills/leezy-slidecraft。
 ```
 
 也可下载 [Releases](https://github.com/BigWai1312/leezy-skills/releases/latest) 中的 `leezy-slidecraft.zip`，解压后按下述结构放入Skills目录。
@@ -69,7 +68,7 @@ Copy-Item -LiteralPath (Join-Path $collectionRoot "skills\leezy-slidecraft") `
     -Destination $destination -Recurse
 ```
 
-安装后在新一轮对话调用；客户端未刷新时重新打开会话。更新仓库或发布新版不会自动覆盖已经安装的技能，请按需要更新，并先保留本地自定义版本。
+安装后在新一轮对话调用；客户端未刷新时重新打开会话。保留完整技能目录中的配套文件，更新前保留本地自定义版本。仓库推送不会自动更新本地安装或旧 Release 附件；下载 ZIP 时核对对应版本。
 
 ## 调用示例
 

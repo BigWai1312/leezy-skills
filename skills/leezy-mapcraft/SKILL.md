@@ -4,7 +4,7 @@ description: Prepare and validate offline GIS basemaps, automatically acquire mi
 metadata:
   author: BigWai1312
   source: https://github.com/BigWai1312/leezy-skills/tree/main/skills/leezy-mapcraft
-  version: "1.2.0"
+  version: "1.2.1"
 ---
 
 # LEEZY MapCraft
@@ -36,11 +36,21 @@ Use this skill for base-data checklists, offline basemap preparation, and analyt
 
 Before listing, acquiring, or validating base data, read [Base Geography Preparation](references/base-geography.md). It defines the layer checklist, source selection, extent, offline handoff, and acceptance checks, including actual DEM download and fallback limits. Search the supplied local folders first; automatically fill real gaps with suitable public or already-authorized sources when acquisition is in scope. Report source-specific blockers and continue independent work; do not silently substitute unverified data.
 
+## Overview And Thematic Maps Are Independent
+
+Follow the requested map type. A regional overview explains geographic setting; a thematic map explains an indicator. Neither is a prerequisite for the other. A thematic-map request must not silently become an overview task or generate an extra overview first.
+
+- Share validated source datasets and selectively reuse editable base layers or symbol settings. Never use a finished overview PNG, JPEG, PDF, screenshot, or flattened layout as the thematic basemap. A rendered relief raster without labels or layout furniture is a base layer, not a finished overview.
+- Give each output its own editable map and layout; they may live in one APRX and reference the same GDB. When reusing an existing project, create or copy an independent map as well as its layout so changing thematic symbology does not alter the accepted overview.
+- Build the thematic title, legend, units, year, classification and visible reference layers for the actual indicator. Do not inherit every road, label, shadow, inset or terrain setting from the overview. Fade or omit terrain when it obscures the indicator, particularly a continuous indicator raster.
+- "Use the overview's style" means reuse selected typography and symbol conventions, not the completed image or all its contents. Repository gallery images are visual references only, never input datasets or mandatory templates.
+- If only a finished overview image is available, obtain the required underlying base data when authorized. If the indicator itself is missing, report that gap; do not substitute an overview or invent thematic values.
+
 ## Data And Scale
 
 Before symbolizing, identify the intended scale and the feature that carries the conclusion:
 
-- Province, city, or county scale: show the complete study boundary and its surrounding terrain, major rivers, roads, and neighboring spatial relationships.
+- Province, city, or county scale: show the complete study boundary. For an overview, add surrounding terrain, major rivers, roads and neighboring relationships; for a thematic map, retain only context that helps interpret the indicator.
 - Town or planning-zone scale: retain the town/planning-zone code, name, indicator value, class code, and geometry in the output table. Use projected polygons for thematic results.
 - Village scale: use village points when the source is point data. Treat placeholder points as placeholders and keep the source identifier for later spatial linking.
 - Use one suitable projected coordinate system for the main map, preferably CGCS2000 where appropriate. A national locator uses its own suitable broad-area projection. Reproject derived layers or display them with verified transformations; do not modify the original files.
@@ -58,10 +68,10 @@ Keep the exact study boundary, acquisition square, and final map-frame extent se
 
 Build a quiet, complete background that supports orientation without competing with the thematic result.
 
-Recommended drawing order from background to foreground:
+Choose layers for the requested map type; this is a drawing order, not a mandatory layer checklist. In thematic maps, a plain background may be sufficient and an unused DEM need not be downloaded.
 
-1. Full-frame DEM with no uncovered raster edge inside the map frame.
-2. Light DEM tint and hillshade, with moderate cartographic exaggeration where useful.
+1. Optional full-frame DEM with no uncovered raster edge inside the map frame.
+2. Optional light DEM tint and hillshade, with moderate cartographic exaggeration where useful for an overview.
 3. Optional pale outside mask and a separate decorative boundary shadow above it.
 4. Thematic polygons, points, or analysis result.
 5. Roads, water, administrative boundaries, labels, and other reference elements with restrained symbols.
@@ -136,6 +146,7 @@ For a map delivery, package the editable outputs with their required local data 
 
 Before reporting completion, reopen the exported project and check:
 
+- The requested map type is delivered independently. A thematic map contains its actual indicator layer and no finished overview image as a basemap; changing its renderer or legend has not changed an existing overview.
 - No broken layers, online layers, missing rasters, or uncovered DEM area inside the map frame.
 - Base-data QA covers the displayed surroundings as well as the study area; any unresolved source, coverage, alignment, or label issues remain explicit.
 - The city/study boundary is fully visible and occupies the intended frame.

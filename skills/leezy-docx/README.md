@@ -1,12 +1,12 @@
 # LEEZY DOCX
 
-**LEEZY Skills · BigWai1312 · 中文报告样式排版**
+**中文报告样式排版 · LEEZY Skills · 版本 1.0.0**
 
-[技能源地址](https://github.com/BigWai1312/leezy-skills/tree/main/skills/leezy-docx) · [MIT 许可](LICENSE) · [来源声明](NOTICE.md)
+[技能源地址](https://github.com/BigWai1312/leezy-skills/tree/main/skills/leezy-docx) · [作者 BigWai1312](https://github.com/BigWai1312) · [MIT 许可](LICENSE) · [来源声明](NOTICE.md)
 
 把 Markdown 源稿、Word 命名样式、自动目录、题注和交叉引用组成可维护的报告流程。修改同类样式即可统一调整相应文字，避免逐段手工排版。
 
-## 虚构演示
+## 效果预览
 
 <img src="assets/demo-preview.png" alt="虚构数据报告排版页" width="720">
 
@@ -22,13 +22,13 @@
 
 完整参数见 [样式契约](references/style-contract.md)。本技能是 AI 工作规范，不是即装即用的 Word 加载项或通用转换程序。
 
-## 安装
+## 安装与更新
 
 在支持技能安装器的 Codex 中输入：
 
 ```text
 $skill-installer
-从 BigWai1312/leezy-skills 安装 skills/leezy-docx，技能名称 leezy-docx。
+从 BigWai1312/leezy-skills 的 main 分支安装 skills/leezy-docx，技能名称 leezy-docx。
 ```
 
 或者下载 [Release](https://github.com/BigWai1312/leezy-skills/releases) 中的 `leezy-docx.zip`，
@@ -38,7 +38,7 @@ $skill-installer
 其他客户端以其实际配置为准。
 
 确认结构为 `leezy-docx/SKILL.md`，不要嵌套为 `leezy-docx/leezy-docx/SKILL.md`。
-重新打开会话后使用 `$leezy-docx`。更新前保留自己修改过的旧安装，不要直接覆盖。
+重新打开会话后使用 `$leezy-docx`。更新前保留自己修改过的旧安装，不要直接覆盖。保留完整技能目录中的配套文件；仓库推送不会自动更新本地安装或旧 Release 附件。
 
 若已有本地旧版报告排版技能，新调用名不会自动成为旧名的别名；
 确认新版可用后再停用旧安装，避免重复发现。仓库不自动修改这些本地文件。

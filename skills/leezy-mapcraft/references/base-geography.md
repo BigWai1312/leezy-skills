@@ -26,6 +26,12 @@ analysis, imagery time series, and indicator recalculation unless requested.
 Township boundaries, dense POIs, minor streets, protected areas, and basin datasets
 are optional additions driven by the map's scale or subject.
 
+Reusable base geography means datasets and individual editable layers, not a
+finished regional overview image. Overview and thematic maps consume this data
+independently. A thematic task need not generate an overview, download unused
+terrain or inherit an overview's labels and layout; mark unnecessary layers
+`not_needed`. A quick coverage QA image is not a final overview deliverable.
+
 When preparation or mapping is requested and local base data are absent, carry
 the work through acquisition and validation without requiring a second "download"
 instruction. Obtain a credible study boundary first, calculate coverage, then
